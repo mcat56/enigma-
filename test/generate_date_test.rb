@@ -17,6 +17,6 @@ class GenerateDateTest < MiniTest::Test
 
   def test_generate_date
     date = GenerateDate.generate_date
-    assert_match("120919", date)
+    assert_match(/\d{6}/, date)
   end
 end

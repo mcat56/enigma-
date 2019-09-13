@@ -10,12 +10,5 @@ class Enigma
     }
   end
 
-  def encrypt(message, key = Key.generate_key, date = GenerateDate.generate_date)
-
-  end
-
-  def decrypt(encryption, key = Key.generate_key, date = GenerateDate.generate_date)
-  end
-
 
 end
