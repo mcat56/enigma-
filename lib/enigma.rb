@@ -1,4 +1,5 @@
 class Enigma
+  include EncryptDecrypt
   attr_reader :encrypted
 
   def initialize
@@ -9,10 +10,12 @@ class Enigma
     }
   end
 
-  def encrypt(message, key, date)
+  def encrypt(message, key = Key.generate_key, date = GenerateDate.generate_date)
 
-  end 
+  end
 
+  def decrypt(encryption, key = Key.generate_key, date = GenerateDate.generate_date)
+  end
 
 
 end
