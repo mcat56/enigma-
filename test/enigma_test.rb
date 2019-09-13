@@ -17,7 +17,8 @@ class EnigmaTest < MiniTest::Test
     key.stubs(:generate_key).returns("02461")
 
     assert_equal date, @enigma.date
-    assert_equal number, @enigma.number
+    assert_equal key, @enigma.key
+    assert_equal ({}), @enigma.encrypted
   end
 
 
@@ -51,6 +52,16 @@ class EnigmaTest < MiniTest::Test
     date = mock
     date.stubs(:generate_date).returns("120919")
     assert_equal ({decryption:     , key: "02715", date: @enigma.date}), @enigma.decrypt(encrypted[:encryption], "02715")
+  end
+
+  def test_crack
+    encrypted = {encryption: "vjqtbeaweqihssi", key: "08304", date: "291018"}
+
+    assert_equal ({decryption: "hello world end",date: "291018",key: "08304"}), @enigma.crack("vjqtbeaweqihssi","291018")
+  end
+
+  def test_crack_no_date
+    assert_equal ({ decryption: "hello world end",date: DDMMYY, key: key }), @engima.crack("vjqtbeaweqihssi")
   end
 
 

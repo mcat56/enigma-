@@ -1,6 +1,20 @@
 require 'test_helper'
 require_relative '/modules/decrypt'
 
+class Decrypt
+  include Decrypt
+
+  def initialize(decryption, key = generate_key, date = generate_date)
+    @decrypted = {
+      decryption: decryption,
+      key: key,
+      date: date
+    }
+  end
+
+end
+
+
 enigma = Enigma.new
 
 handle = File.open(ARGV[0], "r")

@@ -1,6 +1,15 @@
 require 'test_helper'
 require_relative '/modules/encrypt'
 
+class Encrypt
+  include Encrypt
+
+  def initialize
+    
+  end
+
+end
+
 enigma = Enigma.new
 
 handle = File.open(ARG[0], "r")
