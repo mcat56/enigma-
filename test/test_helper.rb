@@ -1,0 +1,11 @@
+require 'simplecov'
+SimpleCov.start
+require 'minitest/autorun'
+require 'minitest/pride'
+require 'date'
+require_relative '../lib/key'
+require_relative '../lib/enigma'
+require_relative '../lib/generate_date'
+# require_relative '../lib/decrypt'
+# require_relative '../lib/encrypt'
+require_relative '../modules/encrypt_decrypt'
