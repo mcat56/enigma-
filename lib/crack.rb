@@ -1,5 +1,3 @@
-require 'test_helper'
-require_relative '/modules/decrypt'
 
 enigma = Enigma.new
 
