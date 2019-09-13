@@ -4,19 +4,19 @@ require_relative 'test_helper'
 class GenerateDateTest < MiniTest::Test
 
   def setup
-    @generate_date = GenerateDate.new
+    @gen_date = GenerateDate.new
   end
 
   def test_it_exists
-    assert_instance_of GenerateDate, @generate_date
+    assert_instance_of GenerateDate, @gen_date
   end
 
   def test_initialize
-    assert_equal "", @generate_date.date
+    assert_nil @gen_date.date
   end
 
   def test_generate_date
-    @generate_date.generate_date
-    assert_match(/\d{6}/ , @generate_date.date)
+    date = GenerateDate.generate_date
+    assert_match("120919", date)
   end
 end
