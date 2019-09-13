@@ -17,6 +17,10 @@ class EnigmaTest < MiniTest::Test
     date.stubs(:generate_date).returns("120919")
     key.stubs(:generate_key).returns("02461")
 
+    @encrypt = Encrypt.new
+    @decrypt = Decrypt.new
+
+
     assert_equal "120919", @enigma.date
     assert_equal "02461", @enigma.key
     assert_equal ({}), @enigma.encrypted
