@@ -44,9 +44,6 @@ class EnigmaTest < MiniTest::Test
 
 
 
-
-
-
 end
 
   #
