@@ -12,7 +12,7 @@ decrypted_txt = enigma.decrypt(encrypted,File.open(ARGV[2]),File.open(ARGV[3]))
 
 writer = File.open(ARGV[1], "w")
 
-writer.write(encrypted_txt)
+writer.write(decrypted_txt)
 
 writer.close
 

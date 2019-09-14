@@ -11,12 +11,9 @@ class GenerateDateTest < MiniTest::Test
     assert_instance_of GenerateDate, @gen_date
   end
 
-  def test_initialize
-    assert_nil @gen_date.date
-  end
-
   def test_generate_date
     date = GenerateDate.generate_date
-    assert_match(/\d{6}/, date)
+    assert_match (/\d{6}/), date
   end
+
 end

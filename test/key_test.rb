@@ -10,11 +10,6 @@ class KeyTest < MiniTest::Test
     assert_instance_of Key, @key
   end
 
-  def test_initialize
-    assert_equal "", @key.key
-  end
-
-
   def test_generate_key
     key = Key.generate_key
     assert_match(/\d{5}/, key)

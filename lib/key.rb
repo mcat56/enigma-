@@ -1,8 +1,6 @@
 class Key
-  attr_reader :key
 
   def initialize
-    @key = ""
   end
 
   def self.generate_key
