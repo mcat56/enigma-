@@ -10,8 +10,7 @@ class Enigma
   end
 
   def encrypt(message, key = Key.generate_key , date = GenerateDate.generate_date )
-    @encrypted[:encryption] = message.downcase
-    @encrypted[:key] = key
+    @encrypted = {encryption: message.downcase, key: key }
     if key.length == 6
       @encrypted[:date] = key
     else
