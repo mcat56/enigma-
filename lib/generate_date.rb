@@ -9,15 +9,11 @@
 # d.strftime("%m%d%y")
 
 class GenerateDate < Date
-  attr_reader :date
 
-  def initialize
-    @date = nil
-  end
+
 
   def self.generate_date
-    d = Date.today
-    @date = d.strftime("%d%m%y")
+    today.strftime("%d%m%y")
   end
 
 end
