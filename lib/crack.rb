@@ -1,18 +1,19 @@
+require_relative '../test/test_helper'
 
 enigma = Enigma.new
 
 handle = File.open(ARGV[0], "r")
 
-encrypted = handle.read
+encrypted = (handle.read).chomp
+
+decrypted_txt = enigma.crack(encrypted, ARGV[2])
 
 handle.close
 
-decrypted_txt = enigma.decrypt(encrypted,enigma.date,File.open(ARGV[3]))
-
 writer = File.open(ARGV[1], "w")
 
-writer.write(encrypted_txt)
+writer.write(decrypted_txt)
 
 writer.close
 
-puts "Created #{File.open(ARGV[1])} with the cracked key #{engima.key} and date #{File.open(ARGV[3])}"
+puts "Created '#{ARGV[1]}' with the cracked key #{9352} and date #{ARGV[2]}"
