@@ -17,45 +17,43 @@ class Enigma
     else
       @encrypted[:date] = date
     end
-      @encryption = Encryption.new(@encrypted[:encryption],@encrypted[:key],@encrypted[:date])
-      encrypt_shift
+    @encryption = Encryption.new(@encrypted[:encryption],@encrypted[:key],@encrypted[:date])
+    @encrypted[:encryption] = shift(message.downcase,key,date,false)
+    @encrypted
   end
 
-  def decrypt(encryption, key = Key.generate_key, date = GenerateDate.generate_date)
-    @decryption = Decryption.new(encryption, key, date)
-    decrypt_shift
+  def decrypt(cipher, key = Key.generate_key, date = GenerateDate.generate_date)
+    @decryption = Decryption.new(cipher,key,date)
+
+    {decryption: shift(cipher,key,date,true), key: key, date: date}
   end
 
-  def crack(message, date = GenerateDate.generate_date)
-    nil
+  def crack(cipher, date = GenerateDate.generate_date)
+    keys = (00000..99999).to_a.map {|num| num.to_s.rjust(5,"0") }
+
+    key = keys.select { |key| decrypt(cipher,key,date)[:decryption][-4..-1] == " end" }[0]
+
+    {decryption: decrypt(cipher,key,date)[:decryption], key: key, date: decrypt(cipher,key,date)[:date] }
   end
 
   def generate_keys(key)
-    key = key.split("")
-    key_A = (key[0] + key[1]).to_i
-    key_B = (key[1] + key[2]).to_i
-    key_C = (key[2] + key[3]).to_i
-    key_D = (key[3] + key[4]).to_i
-    keys = [key_A, key_B, key_C, key_D]
+    keys = [(key[0] + key[1]).to_i, (key[1] + key[2]).to_i, key_C = (key[2] + key[3]).to_i, key_D = (key[3] + key[4]).to_i]
   end
 
   def generate_offsets(date)
     offset = (date.to_i**2).to_s[-4..-1]
-    offset_A = offset[0].to_i
-    offset_B = offset[1].to_i
-    offset_C = offset[2].to_i
-    offset_D = offset[3].to_i
-    offsets = [offset_A, offset_B, offset_C, offset_D]
+    offset.split("").map {|num| num.to_i }
   end
 
   def generate_shifts(key,date)
     generate_keys(key).zip(generate_offsets(date)).map {|array| array.sum}.flatten
   end
 
-  def encrypt_shift
-    shifts = generate_shifts(@encrypted[:key], @encrypted[:date])
-    encrypted = @encrypted[:encryption].split("").each do |letter|
-      shift = shifts[0]
+  def shift(text,key,date,boolean)
+    shifts = generate_shifts(key, date)
+    message = text.split("").each do |letter|
+        shift = shifts[0]
+        shift = (shifts[0] * -1) if boolean == true
       shifted = @alphabet.rotate(shift)
       if '!"#$%&\'()*+,-./:;<=>?@[\]^_`{|}~'.include? letter
         letter = letter
@@ -64,28 +62,8 @@ class Enigma
       end
       shifts.rotate!
     end
-    @encrypted[:encryption] = encrypted.join
-    @encrypted
+    message.join
   end
-
-  def decrypt_shift
-    shifts = generate_shifts(@decryption.key, @decryption.date)
-    decrypted = @decryption.decryption.split("").each do |letter|
-      shift = (shifts[0] * -1)
-      shifted = @alphabet.rotate(shift)
-      if '!"#$%&\'()*+,-./:;<=>?@[\]^_`{|}~'.include? letter
-        letter = letter
-      else
-        letter.replace(shifted[@alphabet.index(letter)])
-      end
-      shifts.rotate!
-    end
-    {decryption: decrypted.join,
-      key: @decryption.key,
-      date: @decryption.date }
-  end
-
-
 
 
 
