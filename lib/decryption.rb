@@ -1,8 +1,8 @@
 class Decryption
-  attr_reader :decryption, :key, :date
+  attr_reader :cipher, :key, :date
 
-  def initialize(decryption,key,date)
-    @decryption = decryption
+  def initialize(cipher,key,date)
+    @cipher = cipher
     @key = key
     @date = date
   end
