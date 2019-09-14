@@ -38,45 +38,37 @@ class EnigmaTest < MiniTest::Test
 
   def test_decrypt_all_args
 
-    assert_equal ( {decryption: "hello world",key: "02715",date: "040895" }), @enigma.decrypt("keder ohulw", "02715", "040895")
+    assert_equal ( {decryption: "hello world", key: "02715",date: "040895" }), @enigma.decrypt("keder ohulw", "02715", "040895")
   end
+
 
   def test_encrypt_no_date_or_key
     date = mock
-    number = mock
-    date.stubs(:generate_date).returns("120919")
-    number.stubs(:generate_key).returns("02715")
+    key = mock
+    date.stubs(:generate_date).returns("140919")
+    key.stubs(:generate_key).returns("94204")
 
-    assert_equal ({encryption:     , key: @enigma.key, date: @enigma.date}), @enigma.encrypt("hello world")
+    assert_equal ({encryption: "mklwt wzwrd", key: "02715", date: "120919" }), @enigma.encrypt("hello world")
   end
 
+  def test_encrypt_no_date
+    date = mock
+    date.stubs(:generate_date).returns("140919")
+    assert_equal ( {encryption: "njhauesdxq ", key: "02715", date: "140919" }),  @enigma.encrypt("hello world", "02715")
+  end
 
+  def test_decrypt_no_date
+    date = mock
+    date.stubs(:generate_date).returns("140919")
+    assert_equal ({decryption: "hello world" , key: "02715", date: "140919"}), @enigma.decrypt("keder ohulw", "02715")
+  end
 
+  def test_decrypt_from_encrypted
+    @enigma.encrypt("hello world", "02715")
 
-end
+    assert_equal ({decryption: "hello world" , key: "02715", date: "140919"}), @enigma.decrypt(@enigma.encrypted[:encryption], "02715")
+  end
 
-  # def test_encrypt_no_date_or_key
-  #   date = mock
-  #   number = mock
-  #   date.stubs(:generate_date).returns("120919")
-  #   number.stubs(:generate_key).returns("02715")
-  #
-  #   assert_equal ({encryption:     , key: @enigma.key, date: @enigma.date}), @enigma.encrypt("hello world")
-  # end
-  #
-  # def test_encrypt_no_date
-  #   date = mock
-  #   date.stubs(:generate_date).returns("120919")
-  #   assert_equal ( {encryption:     , key: "02715", date: @enigma.data }),  @enigma.encrypt("hello world", "02715")
-  # end
-  #
-  # def test_decrypt_no_date
-  #   encrypted = ({encryption: "keder ohulw", key: "02715",date: "040895"})
-  #   date = mock
-  #   date.stubs(:generate_date).returns("120919")
-  #   assert_equal ({decryption:     , key: "02715", date: @enigma.date}), @enigma.decrypt(encrypted[:encryption], "02715")
-  # end
-  # #
   # def test_crack
   #   encrypted = {encryption: "vjqtbeaweqihssi", key: "08304", date: "291018"}
   #
@@ -87,3 +79,5 @@ end
   #   assert_equal ({ decryption: "hello world end",date: DDMMYY, key: key }), @engima.crack("vjqtbeaweqihssi")
   # end
   #
+
+end

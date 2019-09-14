@@ -57,14 +57,14 @@ class Enigma
     encrypted = @encrypted[:encryption].split("").each do |letter|
       shift = shifts[0]
       shifted = @alphabet.rotate(shift)
-      if ' !"#$%&\'()*+,-./:;<=>?@[\]^_`{|}~'.include? letter
+      if '!"#$%&\'()*+,-./:;<=>?@[\]^_`{|}~'.include? letter
         letter = letter
       else
         letter.replace(shifted[@alphabet.index(letter)])
       end
       shifts.rotate!
     end
-    @encrypted[:encryption] = encrypted.join.strip
+    @encrypted[:encryption] = encrypted.join
     @encrypted
   end
 
@@ -73,14 +73,14 @@ class Enigma
     decrypted = @decryption.decryption.split("").each do |letter|
       shift = (shifts[0] * -1)
       shifted = @alphabet.rotate(shift)
-      if ' !"#$%&\'()*+,-./:;<=>?@[\]^_`{|}~'.include? letter
+      if '!"#$%&\'()*+,-./:;<=>?@[\]^_`{|}~'.include? letter
         letter = letter
       else
         letter.replace(shifted[@alphabet.index(letter)])
       end
       shifts.rotate!
     end
-    {decryption: decrypted.join.strip,
+    {decryption: decrypted.join,
       key: @decryption.key,
       date: @decryption.date }
   end
@@ -90,4 +90,4 @@ class Enigma
 
 
 
-  end
+end
