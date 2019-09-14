@@ -18,18 +18,18 @@ class EnigmaTest < MiniTest::Test
 
   def test_generate_keys
     @enigma.encrypt("hello world", "90193", "120919")
-    assert_equal [90,1,19,93], @enigma.generate_keys
+    assert_equal [90,1,19,93], @enigma.generate_keys(@enigma.encrypted[:key])
   end
 
   def test_generate_offsets
     @enigma.encrypt("hello world", "90193", "120919")
 
-    assert_equal [4,5,6,1], @enigma.generate_offsets
+    assert_equal [4,5,6,1], @enigma.generate_offsets(@enigma.encrypted[:date])
   end
 
   def test_generate_shifts
     @enigma.encrypt("hello world", "90193", "120919")
-    assert_equal [94,6,25,94], @enigma.generate_shifts
+    assert_equal [94,6,25,94], @enigma.generate_shifts(@enigma.encrypted[:key],@enigma.encrypted[:date])
   end
 
   def test_encrypt_all_args
@@ -38,7 +38,16 @@ class EnigmaTest < MiniTest::Test
 
   def test_decrypt_all_args
 
-    assert_equal ( {decryption: "hello world",key: "02715",date: "040895" }), @engima.decrypt("keder ohulw", "02715", "040895")
+    assert_equal ( {decryption: "hello world",key: "02715",date: "040895" }), @enigma.decrypt("keder ohulw", "02715", "040895")
+  end
+
+  def test_encrypt_no_date_or_key
+    date = mock
+    number = mock
+    date.stubs(:generate_date).returns("120919")
+    number.stubs(:generate_key).returns("02715")
+
+    assert_equal ({encryption:     , key: @enigma.key, date: @enigma.date}), @enigma.encrypt("hello world")
   end
 
 
@@ -46,13 +55,6 @@ class EnigmaTest < MiniTest::Test
 
 end
 
-  #
-  #
-  # def test_decrypt_all_args
-  #
-  #   assert_equal ( {decryption: "hello world",key: "02715",date: "040895" }), @engima.decrypt("keder ohulw", "02715", "040895")
-  # end
-  #
   # def test_encrypt_no_date_or_key
   #   date = mock
   #   number = mock
