@@ -1,3 +1,4 @@
+
 # Enigma
 
 Functionality:
@@ -10,4 +11,6 @@ Test Driven Development:
   My tests all clearly indicate their purpose. I use mocks and stubs in more than one test in Enigma.
 
 Version Control:
-  I have close to 40 commits and close to 15 pull requests, all of which communicate the their purpose. Some commits include multiple pieces of functionality.
+  I have close to 40 commits and close to 15 pull requests, all of which communicate the their purpose. Some commits include multiple pieces of functionality. 
+
+
