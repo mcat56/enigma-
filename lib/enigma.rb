@@ -29,7 +29,9 @@ class Enigma < Shift
 
     selected_key = keys.select { |key| decrypt(cipher,key,date)[:decryption][-4..-1] == " end" }[0]
 
-    {decryption: decrypt(cipher,selected_key,date)[:decryption], key: selected_key, date: decrypt(cipher,selected_key,date)[:date] }
+    {decryption: decrypt(cipher,selected_key,date)[:decryption],
+     key: selected_key,
+     date: decrypt(cipher,selected_key,date)[:date] }
   end
 
 
