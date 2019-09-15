@@ -12,8 +12,8 @@ handle.close
 
 writer = File.open(ARGV[1], "w")
 
-writer.write(decrypted_txt)
+writer.write(decrypted_txt[:decryption])
 
 writer.close
 
-puts "Created '#{ARGV[1]}' with the cracked key #{9352} and date #{ARGV[2]}"
+puts "Created '#{ARGV[1]}' with the cracked key #{decrypted_txt[:key]} and date #{decrypted_txt[:date]}"
