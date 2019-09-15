@@ -12,7 +12,6 @@ class EnigmaTest < MiniTest::Test
   end
 
   def test_initialize
-    assert_equal ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", " "], @enigma.alphabet
     assert_equal ({}), @enigma.encrypted
   end
 
