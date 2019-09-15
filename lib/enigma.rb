@@ -1,6 +1,3 @@
-require_relative 'decryption'
-require_relative 'encryption'
-
 class Enigma
   attr_reader :encrypted, :alphabet
 
@@ -30,9 +27,9 @@ class Enigma
   def crack(cipher, date = GenerateDate.generate_date)
     keys = (00000..99999).to_a.map {|num| num.to_s.rjust(5,"0") }
 
-    key = keys.select { |key| decrypt(cipher,key,date)[:decryption][-4..-1] == " end" }[0]
+    selected_key = keys.select { |key| decrypt(cipher,key,date)[:decryption][-4..-1] == " end" }[0]
 
-    {decryption: decrypt(cipher,key,date)[:decryption], key: key, date: decrypt(cipher,key,date)[:date] }
+    {decryption: decrypt(cipher,selected_key,date)[:decryption], key: selected_key, date: decrypt(cipher,selected_key,date)[:date] }
   end
 
   def generate_keys(key)
