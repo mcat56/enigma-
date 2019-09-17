@@ -1,3 +1,4 @@
+
 # Enigma
 
 Functionality:
@@ -11,3 +12,4 @@ Test Driven Development:
 
 Version Control:
   I have at least 15 pull requests and 40 commits, all of which communicate the their purpose. Some commits include multiple pieces of functionality.
+
