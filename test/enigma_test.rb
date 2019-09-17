@@ -31,6 +31,14 @@ class EnigmaTest < MiniTest::Test
     assert_equal [94,6,25,94], @enigma.generate_shifts(@enigma.encrypted[:key],@enigma.encrypted[:date])
   end
 
+  # def test_generate_key
+  #   assert_match /\d{5}/, Key.generate_key
+  # end
+  #
+  # def test_generate_date
+  #   assert_match /\d{6}/, GenerateDate.generate_date
+  # end
+
   def test_encrypt_all_args
     assert_equal  ({encryption: "keder ohulw!", key: "02715",date: "040895"} ) , @enigma.encrypt("Hello World!", "02715", "040895")
   end
@@ -54,7 +62,10 @@ class EnigmaTest < MiniTest::Test
     date = mock
     date.stubs(:generate_date).returns("130919")
     assert_equal ( {encryption: "njhauesdxq ", key: "02715", date: "130919" }),  @enigma.encrypt("hello world", "02715", date.generate_date)
+  end
 
+  def test_encrypt_no_key
+    assert_equal "130919" , @enigma.encrypt("Hello World?", "130919")[:date]
   end
 
   def test_decrypt_no_date
