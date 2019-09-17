@@ -9,10 +9,12 @@ class Enigma < Shift
   end
 
   def encrypt(message, key = Key.generate_key , date = GenerateDate.generate_date )
-    @encrypted = {encryption: message.downcase, key: key }
+    @encrypted = {encryption: message.downcase}
     if key.length == 6
+      @encrypted[:key] = Key.generate_key
       @encrypted[:date] = key
     else
+      @encrypted[:key] = key
       @encrypted[:date] = date
     end
     @encrypted[:encryption] = @shift.shift(message.downcase,key,date,false)
